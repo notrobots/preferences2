@@ -24,9 +24,9 @@ plugins {
 dependencies {
     var pref2 = 'com.github.notrobots.preferences2'
 
-    implementation '$pref2:preferences2:$version'
-    implementation '$pref2:preferences2-annotations:$version'
-    kapt '$pref2:preferences2-processor:$version'
+    implementation "$pref2:preferences2:$version"
+    implementation "$pref2:preferences2-annotations:$version"
+    kapt "$pref2:preferences2-processor:$version"
 }
 ```
 
@@ -91,6 +91,19 @@ public fun SharedPreferences.getMyBooleanPref(default: Boolean = true): Boolean 
 }
 ```
 
+You can also customize the generated function names by setting the `functionaName` field's value in the annotation.
+
+```kotlin
+@BooleanPreference(defaultValue = true, functionName = "DifferentName")
+const val MY_BOOLEAN_PREF = "boolean_pref_key"
+
+// Will generate:
+public fun SharedPreferences.getDifferentName(default: Boolean = true): Boolean {
+    return getBoolean("boolean_pref_key", default)
+}
+```
+
+Note that the defined function name will be used as is, it is recommended to start the name with an uppercase letter.
 
 ## Extensions
 
