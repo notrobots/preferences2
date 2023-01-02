@@ -93,6 +93,58 @@ fun <E : Enum<E>> SharedPreferences.Editor.putEnum(
 }
 
 /**
+ * Set an enum value in the preferences editor, to be written back once commit() or apply() are called.
+ *
+ * @param name The name of the preference to modify.
+ * @param value The new value for the preference.
+ */
+fun SharedPreferences.putEnum(
+    name: String,
+    value: String
+) {
+    edit { putString(name, value) }
+}
+
+/**
+ * Set an enum value in the preferences editor, to be written back once commit() or apply() are called.
+ *
+ * @param name The name of the preference to modify.
+ * @param value The new value for the preference.
+ */
+fun SharedPreferences.Editor.putEnum(
+    name: String,
+    value: String
+): SharedPreferences.Editor {
+    return putString(name, value)
+}
+
+/**
+ * Set an enum value in the preferences editor, to be written back once commit() or apply() are called.
+ *
+ * @param name The name of the preference to modify.
+ * @param value The new value for the preference.
+ */
+fun SharedPreferences.putEnum(
+    name: String,
+    value: Int
+) {
+    edit { putInt(name, value) }
+}
+
+/**
+ * Set an enum value in the preferences editor, to be written back once commit() or apply() are called.
+ *
+ * @param name The name of the preference to modify.
+ * @param value The new value for the preference.
+ */
+fun SharedPreferences.Editor.putEnum(
+    name: String,
+    value: Int
+): SharedPreferences.Editor {
+    return putInt(name, value)
+}
+
+/**
  * Retrieve a JSONObject value from the preferences.
  *
  * The value is stored as a string and can also be retrieved using `getString`.
