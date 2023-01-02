@@ -58,6 +58,40 @@ inline fun <reified E : Enum<E>> SharedPreferences.getEnum(name: String, default
 }
 
 /**
+ * Retrieve an Enum value from the preferences.
+ *
+ * Value can be stored as either an integer which represents the enum value's index; or a
+ * string which represents the enum value's name.
+ *
+ * Note: The string case will be ignored
+ *
+ * @param name The name of the preference to retrieve.
+ * @param default Value to return if this preference does not exist.
+ *
+ * @return Returns the preference value if it exists, or [default].
+ */
+inline fun <reified E : Enum<E>> SharedPreferences.getEnum(name: String, default: String): E {
+    return getEnum(name, parseEnum<E>(default))
+}
+
+/**
+ * Retrieve an Enum value from the preferences.
+ *
+ * Value can be stored as either an integer which represents the enum value's index; or a
+ * string which represents the enum value's name.
+ *
+ * Note: The string case will be ignored
+ *
+ * @param name The name of the preference to retrieve.
+ * @param default Value to return if this preference does not exist.
+ *
+ * @return Returns the preference value if it exists, or [default].
+ */
+inline fun <reified E : Enum<E>> SharedPreferences.getEnum(name: String, default: Int): E {
+    return getEnum(name, parseEnum<E>(default))
+}
+
+/**
  * Set an enum value in the preferences editor, to be written back once commit() or apply() are called.
  *
  * @param name The name of the preference to modify.
