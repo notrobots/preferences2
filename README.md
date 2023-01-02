@@ -105,6 +105,58 @@ public fun SharedPreferences.getDifferentName(default: Boolean = true): Boolean 
 
 Note that the defined function name will be used as is, it is recommended to start the name with an uppercase letter.
 
+## Material 3 Preferences
+
+You can use Material 3's styled preferences by using the MaterialPreferenceFragment class for your fragments and by using the provided material widgets.
+
+Replace PreferenceFragmentCompat with MaterialPreferenceFragment in your fragment's class:
+
+```kotlin
+class SettingsActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_settings)
+
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.container, SettingsFragment())
+            .commit()
+    }
+    
+    class SettingsFragment : MaterialPreferenceFragment() { // <--- 
+        
+    }
+}
+```
+
+Replace the standard preference widgets with the material ones:
+
+```xml
+<!-- Replaces ListPreference -->
+<MaterialListPreference
+    android:title="Material List Preference"
+    android:key="material_list"
+    android:entryValues="@array/my_values"
+    app:entries="@array/my_entries"/>
+
+<!-- Replaces MultiSelectListPreference -->
+<dev.notrobots.preferences2.widgets.MaterialMultiSelectListPreference
+    android:entries="@array/entries"
+    android:key="material_multi_select_list"
+    android:title="MaterialMultiSelectList"
+    app:entryValues="@array/values" />
+
+<!-- Replaces EditTextPreference -->
+<dev.notrobots.preferences2.widgets.MaterialEditTextPreference
+    android:title="Material EditText"
+    android:key="material_edit_text"/>
+    
+<!-- Replaces SwitchPreferenceCompat -->
+<dev.notrobots.preferences2.widgets.MaterialSwitchPreference
+    android:title="Material Switch"
+    android:key="material_switch"/>
+```
+
 ## Extensions
 
 The library provides a few new functions that can be used to store more types.

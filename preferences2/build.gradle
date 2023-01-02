@@ -29,3 +29,9 @@ android {
         jvmTarget = '1.8'
     }
 }
+
+dependencies {
+    implementation 'androidx.preference:preference-ktx:1.2.0'
+    implementation 'org.jetbrains.kotlin:kotlin-reflect:1.7.20'
+    implementation 'com.google.android.material:material:1.7.0'
+}
