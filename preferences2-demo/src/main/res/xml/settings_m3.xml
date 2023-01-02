@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory android:title="Lists">
+        <dev.notrobots.preferences2.widgets.MaterialListPreference
+            android:entries="@array/entries"
+            android:key="material_list"
+            android:title="MaterialList"
+            app:entryValues="@array/values" />
+        <dev.notrobots.preferences2.widgets.MaterialMultiSelectListPreference
+            android:entries="@array/entries"
+            android:key="material_multi_select_list"
+            android:title="MaterialMultiSelectList"
+            app:entryValues="@array/values" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Text">
+        <dev.notrobots.preferences2.widgets.MaterialEditTextPreference
+            android:title="Material EditText"
+            android:key="material_edit_text"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Switch">
+        <dev.notrobots.preferences2.widgets.MaterialSwitchPreference
+            android:title="Material Switch"
+            android:key="material_switch"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

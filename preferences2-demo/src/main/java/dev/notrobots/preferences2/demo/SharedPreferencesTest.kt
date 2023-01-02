@@ -2,9 +2,12 @@ package dev.notrobots.preferences2.demo
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
 import dev.notrobots.preferences2.*
+import dev.notrobots.preferences2.fragments.MaterialPreferenceFragment
 import org.json.JSONObject
 
 private const val APP_TAG = "Preferences2"
@@ -12,6 +15,9 @@ private const val APP_TAG = "Preferences2"
 class SharedPreferencesTest : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_test)
+
+
 
         val pref = PreferenceManager.getDefaultSharedPreferences(this)
         val testSet1 = setOf("1", "2", "3")
@@ -59,6 +65,39 @@ class SharedPreferencesTest : AppCompatActivity() {
         } catch (e: Exception) {
             Log.d(APP_TAG, "TEST FAILED: ${e.message}")
             Log.d(APP_TAG, e.stackTraceToString())
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_test, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_settings_m2 -> supportFragmentManager.beginTransaction()
+                .replace(R.id.container, Material2PreferenceFragment())
+                .commit()
+
+            R.id.menu_settings_m3 -> supportFragmentManager.beginTransaction()
+                .replace(R.id.container, Material3PreferenceFragment())
+                .commit()
+
+            else -> return false
+        }
+
+        return true
+    }
+
+    class Material2PreferenceFragment : MaterialPreferenceFragment() {
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+            addPreferencesFromResource(R.xml.settings_m2)
+        }
+    }
+
+    class Material3PreferenceFragment : MaterialPreferenceFragment() {
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+            addPreferencesFromResource(R.xml.settings_m3)
         }
     }
 }
