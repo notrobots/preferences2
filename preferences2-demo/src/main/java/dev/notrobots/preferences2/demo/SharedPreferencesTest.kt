@@ -47,7 +47,13 @@ class SharedPreferencesTest : AppCompatActivity() {
 
             require(pref.getEnumTest(Values.First) == Values.First)
             pref.putEnumTest(Values.Fifth, true)
-            require(pref.getEnumTest(Values.First) == Values.Fifth)
+            require(pref.getEnumTest<Values>() == Values.Fifth)
+            pref.putEnumTest(Values.Second.name)
+            require(pref.getEnumTest<Values>() == Values.Second)
+            pref.edit().putEnumTest(Values.Third.name).commit()
+            require(pref.getEnumTest<Values>() == Values.Third)
+            pref.putEnumTest(Values.Second.ordinal)
+            require(pref.getEnumTest<Values>() == Values.Second)
 
             require(pref.getBooleanTest())
             pref.putBooleanTest(false, true)

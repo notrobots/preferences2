@@ -194,12 +194,75 @@ class Preferences2Processor : AbstractProcessor() {
 
             if (isEnum) {
                 functions.add(
+                    // fun <E : Enum<E>> SharedPreferences.getPreference(): E
                     FunSpec.builder("get$functionName")
                         .receiver(SHARED_PREFERENCES)
                         .addModifiers(KModifier.INLINE)
                         .addTypeVariable(GENERIC_ENUM.copy(reified = true))
                         .returns(GENERIC_ENUM)
                         .addStatement("return getEnum(\"$propValue\")")
+                        .build()
+                )
+                functions.add(
+                    // fun SharedPreferences.putPreference(value: String, commit: Boolean = false)
+                    FunSpec.builder("put$functionName")
+                        .receiver(SHARED_PREFERENCES)
+                        .addParameter(
+                            ParameterSpec
+                                .builder("value", STRING)
+                                .build()
+                        )
+                        .addParameter(
+                            ParameterSpec
+                                .builder("commit", BOOLEAN)
+                                .defaultValue("false")
+                                .build()
+                        )
+                        .addStatement("edit(commit) { putString(\"$propValue\", value) }")
+                        .build()
+                )
+                functions.add(
+                    // fun SharedPreferences.Editor.putPreference(value: String): SharedPreferences.Editor
+                    FunSpec.builder("put$functionName")
+                        .receiver(SHARED_PREFERENCES_EDITOR)
+                        .addParameter(
+                            ParameterSpec
+                                .builder("value", STRING)
+                                .build()
+                        )
+                        .returns(SHARED_PREFERENCES_EDITOR)
+                        .addStatement("return putString(\"$propValue\", value)")
+                        .build()
+                )
+                functions.add(
+                    // fun SharedPreferences.putPreference(value: Int, commit: Boolean = false)
+                    FunSpec.builder("put$functionName")
+                        .receiver(SHARED_PREFERENCES)
+                        .addParameter(
+                            ParameterSpec
+                                .builder("value", INT)
+                                .build()
+                        )
+                        .addParameter(
+                            ParameterSpec
+                                .builder("commit", BOOLEAN)
+                                .defaultValue("false")
+                                .build()
+                        )
+                        .addStatement("edit(commit) { putInt(\"$propValue\", value) }")
+                        .build()
+                )
+                functions.add(
+                    // fun SharedPreferences.Editor.putPreference(value: Int): SharedPreferences.Editor
+                    FunSpec.builder("put$functionName")
+                        .receiver(SHARED_PREFERENCES_EDITOR)
+                        .addParameter(
+                            ParameterSpec
+                                .builder("value", INT)
+                                .build()
+                        )
+                        .returns(SHARED_PREFERENCES_EDITOR)
+                        .addStatement("return putInt(\"$propValue\", value)")
                         .build()
                 )
 
